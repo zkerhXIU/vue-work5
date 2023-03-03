@@ -34,7 +34,7 @@ const productModal = {
             if (this.id){
                  axios.get(`${apiUrl}api/${apiPath}/product/${this.id}`)
             .then( res => {
-                console.log( '單一產品:', res.data.product);
+                // console.log( '單一產品:', res.data.product);
                 this.tempProduct = res.data.product;
                 this.modal.show();
             });
@@ -50,7 +50,7 @@ const productModal = {
         this.modal = new bootstrap.Modal(this.$refs.modal);
         //監聽DOM 當Modale關閉時...要做其他事情
         this.$refs.modal.addEventListener('hidden.bs.modal', event => {
-            console.log('Modal被關閉了');
+            // console.log('Modal被關閉了');
             this.openModal('');
             // do something...
           })
@@ -79,14 +79,14 @@ const app = Vue.createApp({
         getProducts( ){
             axios.get(`${apiUrl}api/${apiPath}/products/all`)
             .then( res => {
-                console.log( '產品列表:', res.data.products);
+                // console.log( '產品列表:', res.data.products);
                 this.products = res.data.products;
             })
             .catch(err => alert('請重新讀取'));
         },
         openModal(id){
             this.productId = id;
-            console.log("外層帶入 productID:", id);
+            // console.log("外層帶入 productID:", id);
         },
         addToCart(product_id, qty = 1) { // 當沒有傳入該參數時，會使用預設值
             const data = {
@@ -95,7 +95,7 @@ const app = Vue.createApp({
             };
             axios.post(`${apiUrl}api/${apiPath}/cart`,{ data })
             .then( res => {
-                console.log( '加入購物車:', res.data);
+                // console.log( '加入購物車:', res.data);
                 this.$refs.productModal.hide();
                 this.getCarts();
             })
@@ -104,7 +104,7 @@ const app = Vue.createApp({
         getCarts( ){
             axios.get(`${apiUrl}api/${apiPath}/cart`)
             .then( res => {
-                console.log( '購物車:', res.data);
+                // console.log( '購物車:', res.data);
                 this.cart = res.data.data;
             })
             .catch(err => alert(err.res.data.message));
@@ -117,7 +117,7 @@ const app = Vue.createApp({
                 this.loadingItem = item.id;
             axios.put(`${apiUrl}api/${apiPath}/cart/${item.id}`,{data})
             .then( res => {
-                console.log( '更新購物車:', res.data);
+                // console.log( '更新購物車:', res.data);
                 this.getCarts();
                 this.loadingItem = ' ';
             })
@@ -127,7 +127,7 @@ const app = Vue.createApp({
             this.loadingItem = item.id;
             axios.delete(`${apiUrl}api/${apiPath}/cart/${item.id}`)
             .then( res => {
-                console.log( '刪除購物車:', res.data);
+                // console.log( '刪除購物車:', res.data);
                 this.getCarts();
                 this.loadingItem = ' ';
             })
